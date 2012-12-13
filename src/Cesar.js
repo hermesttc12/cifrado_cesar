@@ -23,12 +23,16 @@ var decipherChar = function(letter, shift) {
 var applyShift = function(letter, shift){
 	if (!isALetter(letter)) return letter;
 	var index = ABC.indexOf(letter) + shift;
-	if (shift < 0){
-		index = index < 0 ? ABC.length + index : index;
-	}else{
-		index = index >= ABC.length ? index % ABC.length : index;
-	}
+	index = realocateIndex(index);
 	return ABC[index];
+}
+
+var realocateIndex = function(index){
+	if (index < 0){
+		return ABC.length + index;
+	}else{
+		return index % ABC.length;
+	}
 }
 
 var isALetter = function(letter){
