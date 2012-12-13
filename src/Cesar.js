@@ -1,14 +1,16 @@
 var ABC = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-var cipher = function(phrase, desp){
-	return phrase.split('').map(function(letter){
-		return cipherChar(letter, desp);
-	}).plain();
+var cipher = function(phrase, shift){
+  return applyToChars(phrase, shift, cipherChar);
 }
 
-var decipher = function(phrase, desp){
+var decipher = function(phrase, shift){
+	return applyToChars(phrase, shift, decipherChar);
+}
+
+var applyToChars = function(phrase, shift, func){
 	return phrase.split('').map(function(letter){
-		return decipherChar(letter, desp);
+		return func(letter, shift);
 	}).plain();
 }
 
