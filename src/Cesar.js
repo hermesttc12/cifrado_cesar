@@ -12,18 +12,24 @@ var decipher = function(phrase, desp){
 	}).plain();
 }
 
-var cipherChar = function(letter, desp) {
-	if (!isALetter(letter)) return letter;
-	var index = (ABC.indexOf(letter) + desp) % ABC.length;
-	return ABC[index];
+var cipherChar = function(letter, shift) {
+	return applyShift(letter, shift);
 };
 
-var decipherChar = function(letter, desp) {
-	if (!isALetter(letter)) return letter;
-	var index = ABC.indexOf(letter) - desp;
-	index = index < 0 ? ABC.length + index : index;
-	return ABC[index];
+var decipherChar = function(letter, shift) {
+	return applyShift(letter, -shift);
 };
+
+var applyShift = function(letter, shift){
+	if (!isALetter(letter)) return letter;
+	var index = ABC.indexOf(letter) + shift;
+	if (shift < 0){
+		index = index < 0 ? ABC.length + index : index;
+	}else{
+		index = index >= ABC.length ? index % ABC.length : index;
+	}
+	return ABC[index];
+}
 
 var isALetter = function(letter){
 	return ABC.indexOf(letter) >= 0;
